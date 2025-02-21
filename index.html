@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warshall's Transitive Closure</title>
+    <script>
+        function warshallTransitiveClosure(matrix) {
+            let n = matrix.length;
+            let closure = matrix.map(row => [...row]); // Create a copy of the matrix
+
+            for (let k = 0; k < n; k++) {
+                for (let i = 0; i < n; i++) {
+                    for (let j = 0; j < n; j++) {
+                        closure[i][j] = closure[i][j] || (closure[i][k] && closure[k][j]);
+                    }
+                }
+            }
+
+            return closure;
+        }
+
+        function displayClosure() {
+            let relationMatrix = [
+                [1, 1, 0, 0],
+                [0, 1, 1, 0],
+                [0, 0, 1, 1],
+                [0, 0, 0, 1]
+            ];
+
+            let transitiveClosure = warshallTransitiveClosure(relationMatrix);
+            let output = "<h2>Transitive Closure:</h2><pre>" + JSON.stringify(transitiveClosure, null, 2) + "</pre>";
+            document.getElementById("output").innerHTML = output;
+        }
+    </script>
+</head>
+<body>
+    <h1>Warshall's Transitive Closure Algorithm</h1>
+    <button onclick="displayClosure()">Compute Transitive Closure</button>
+    <div id="output"></div>
+</body>
+</html>
