@@ -4,6 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warshall's Transitive Closure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        input {
+            width: 50px;
+            text-align: center;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .footer {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
     <script>
         function warshallTransitiveClosure(matrix) {
             let n = matrix.length;
@@ -16,7 +53,6 @@
                     }
                 }
             }
-
             return closure;
         }
 
@@ -30,13 +66,12 @@
                 }
             }
             let transitiveClosure = warshallTransitiveClosure(matrix);
-            let output = "<h2>Transitive Closure:</h2><pre>" + JSON.stringify(transitiveClosure, null, 2) + "</pre>";
-            document.getElementById("output").innerHTML = output;
+            displayMatrix(transitiveClosure, "output");
         }
 
         function generateMatrixInput() {
             let size = parseInt(document.getElementById("matrixSize").value);
-            let matrixInput = "<table border='1'>";
+            let matrixInput = "<table>";
             for (let i = 0; i < size; i++) {
                 matrixInput += "<tr>";
                 for (let j = 0; j < size; j++) {
@@ -47,6 +82,19 @@
             matrixInput += "</table><br><button onclick='getMatrixFromUser()'>Compute Transitive Closure</button>";
             document.getElementById("matrixInput").innerHTML = matrixInput;
         }
+
+        function displayMatrix(matrix, elementId) {
+            let tableHTML = "<h2>Transitive Closure:</h2><table>";
+            for (let i = 0; i < matrix.length; i++) {
+                tableHTML += "<tr>";
+                for (let j = 0; j < matrix[i].length; j++) {
+                    tableHTML += `<td>${matrix[i][j]}</td>`;
+                }
+                tableHTML += "</tr>";
+            }
+            tableHTML += "</table>";
+            document.getElementById(elementId).innerHTML = tableHTML;
+        }
     </script>
 </head>
 <body>
@@ -56,5 +104,6 @@
     <button onclick="generateMatrixInput()">Generate Matrix Input</button>
     <div id="matrixInput"></div>
     <div id="output"></div>
+    <div class="footer">Created by Chandan Katiyar</div>
 </body>
 </html>
